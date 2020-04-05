@@ -359,11 +359,16 @@ int main(void)
         TEXBOX_SIZE, TEXBOX_SIZE
     };
 
-    const float FLOOR = 800.0f;
+    float FLOOR = 0.0f;
     Vec2f gravity = vec2(0.0f, 3000.0f);
-    Vec2f position = vec2(500.0f, FLOOR);
+    Vec2f position = vec2(0.0f, 0.0f);
     Vec2f velocity = vec2(0.0f, 0.0f);
     for(;;) {
+        int window_w = 0, window_h = 0;
+        SDL_GetWindowSize(window, &window_w, &window_h);
+        position.x = (float) window_w * 0.5f;
+        FLOOR = (float) window_h - texbox_local.h * 0.5f;
+
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
